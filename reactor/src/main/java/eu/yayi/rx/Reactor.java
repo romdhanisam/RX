@@ -1,25 +1,25 @@
 package eu.yayi.rx;
+
+import eu.yayi.client.PersonController;
+import eu.yayi.config.GenericSubscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-@SpringBootApplication
-public class Reactor
-{
+public class Reactor {
+    static Logger logger = LoggerFactory.getLogger(Reactor.class);
 
-    Logger logger = LoggerFactory.getLogger(Reactor.class);
     public static void main(String[] args) {
-        SpringApplication.run(Reactor.class, args);
+        try (ConfigurableApplicationContext ctxt
+                     = new ClassPathXmlApplicationContext("beans.xml")) {
+            PersonController client = ctxt.getBean(PersonController.class);
+            logger.info("Get All persons FROM DB : {}", client.persons());
+            client.persons()
+                    .subscribe(new GenericSubscriber());
+
+        }
     }
 
-    @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-        return args -> {
-            logger.info("Reactor Environment : {}", ctx.getEnvironment().getActiveProfiles());
-        };
-    }
 }

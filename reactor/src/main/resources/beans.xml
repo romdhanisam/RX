@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+    <bean id="person0" class="eu.yayi.domain.Person">
+        <property name="firstName" value="Samir"></property>
+        <property name="lastName" value="Romdhani"></property>
+        <property name="age" value="26"></property>
+    </bean>
+    <bean id="person1" class="eu.yayi.domain.Person">
+        <property name="firstName" value="Houssem"></property>
+        <property name="lastName" value="Romdhani"></property>
+        <property name="age" value="28"></property>
+    </bean>
+
+    <util:list id="fakeData">
+        <ref bean="person0"/>
+        <ref bean="person1"/>
+    </util:list>
+
+    <bean id="repo" class="eu.yayi.repository.PersonRepositoryImpl">
+        <constructor-arg name="data" ref="fakeData"></constructor-arg>
+    </bean>
+
+    <!-- Beans de la couche Business -->
+    <bean id="reactiveService" class="eu.yayi.service.PersonReactiveServiceImpl">
+        <constructor-arg name="repo" ref="repo"></constructor-arg>
+    </bean>
+
+    <!-- Beans de la couche cliente/presentation -->
+    <bean id="client" class="eu.yayi.client.PersonController">
+        <constructor-arg name="reactiveService" ref="reactiveService"></constructor-arg>
+    </bean>
+
+
+</beans>
