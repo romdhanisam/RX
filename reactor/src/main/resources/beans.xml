@@ -5,12 +5,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
-    <bean id="person0" class="eu.yayi.domain.Person">
+    <bean id="person0" class="eu.yayi.core.entities.Person">
         <property name="firstName" value="Samir"></property>
         <property name="lastName" value="Romdhani"></property>
         <property name="age" value="26"></property>
     </bean>
-    <bean id="person1" class="eu.yayi.domain.Person">
+    <bean id="person1" class="eu.yayi.core.entities.Person">
         <property name="firstName" value="Houssem"></property>
         <property name="lastName" value="Romdhani"></property>
         <property name="age" value="28"></property>
@@ -21,17 +21,17 @@
         <ref bean="person1"/>
     </util:list>
 
-    <bean id="repo" class="eu.yayi.repository.PersonRepositoryImpl">
+    <bean id="repo" class="eu.yayi.repository.PersonDaoImpl">
         <constructor-arg name="data" ref="fakeData"></constructor-arg>
     </bean>
 
     <!-- Beans de la couche Business -->
-    <bean id="reactiveService" class="eu.yayi.service.PersonReactiveServiceImpl">
+    <bean id="reactiveService" class="eu.yayi.service.PersonServiceImpl">
         <constructor-arg name="repo" ref="repo"></constructor-arg>
     </bean>
 
     <!-- Beans de la couche cliente/presentation -->
-    <bean id="client" class="eu.yayi.client.PersonController">
+    <bean id="client" class="eu.yayi.api.PersonController">
         <constructor-arg name="reactiveService" ref="reactiveService"></constructor-arg>
     </bean>
 

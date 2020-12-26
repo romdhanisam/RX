@@ -1,0 +1,75 @@
+
+#logging:
+#  level:
+#    org.hibernate.type: trace
+# server:
+#  servlet:
+#    context-path: /api/v1
+
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:h2:mem:rxdb
+    driverClassName : org.h2.Driver
+    username: sa
+    password:
+    platform: h2
+    initialization-mode: always
+    initialize: true
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+      show-sql: true
+      generate-ddl: true
+      hibernate:
+        ddl-auto: create-drop
+  h2.console:
+    enabled: true
+  path : /h2-console
+
+---
+spring:
+  profiles: dev
+  datasource:
+    #url: jdbc:mysql://${MYSQL_HOST}:3306/rxdb?useSSL=false
+    #driverClassName : com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST}/${DB_NAME}?useSSL=false
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      initialization-fail-timeout: 0
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+    jpa:
+      generate-ddl: true
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+
+---
+spring:
+  profiles: jawsdb
+  datasource:
+    url: jdbc:mysql://ebp8ccngihm273d1:f9lt4wiqm5su7q4z@gtizpe105piw2gfq.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/uk139lenef8v4hfk
+    driverClassName : com.mysql.cj.jdbc.Driver
+    username: ebp8ccngihm273d1
+    password: f9lt4wiqm5su7q4z
+    jpa:
+      database: mysql
+      generate-ddl: true
+      database-platform: org.hibernate.dialect.MySQL8Dialect
+      show-sql: true
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL5Dialect
+          ddl-auto: update

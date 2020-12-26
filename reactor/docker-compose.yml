@@ -1,0 +1,38 @@
+version: "3.2"
+
+networks:
+  rx-bridge:
+    driver: bridge
+
+services:
+
+  springboot:
+    container_name: rxapi
+    image: rxapi:dev2
+    environment:
+      MYSQL_HOST: database
+    depends_on:
+      - database
+    links:
+      - database
+    ports:
+      - "8089:8080"
+    networks:
+      - rx-bridge
+
+
+  database:
+    container_name: database
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=samir
+      - MYSQL_PASSWORD=samir
+      - MYSQL_USER=samir
+      - MYSQL_DATABASE=rxdb
+    #healthcheck:
+    #  test: "/usr/bin/mysql --user=samir --password=samir --execute \"SHOW DATABASES;\""
+    ports:
+      - "3307:3306"
+    networks:
+      - rx-bridge
+
