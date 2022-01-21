@@ -1,4 +1,4 @@
-package eu.yayi.rx;
+package com.github.rx;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

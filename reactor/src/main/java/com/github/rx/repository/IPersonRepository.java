@@ -1,6 +1,6 @@
-package eu.yayi.repository;
+package com.github.rx.repository;
 
-import eu.yayi.domain.Person;
+import com.github.rx.domain.Person;
 import reactor.core.publisher.Flux;
 
 public interface IPersonRepository {

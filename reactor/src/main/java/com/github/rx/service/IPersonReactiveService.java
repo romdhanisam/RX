@@ -1,6 +1,6 @@
-package eu.yayi.service;
+package com.github.rx.service;
 
-import eu.yayi.domain.Person;
+import com.github.rx.domain.Person;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
