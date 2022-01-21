@@ -1,4 +1,4 @@
-package eu.yayi.config;
+package com.github.rx.config;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;

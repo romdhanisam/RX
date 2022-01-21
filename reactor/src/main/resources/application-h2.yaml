@@ -1,0 +1,28 @@
+spring:
+  h2:
+    console.enabled: true
+    show_sql: true
+  datasource:
+    url: jdbc:h2:mem:mydb;MODE=Oracle
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect #com.github.rx.commons.Oracle10gDialectWithXMLType
+    #database: ORACLE
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: create
+        dialect: org.hibernate.dialect.H2Dialect  #eu.yayi.commons.Oracle10gDialectWithXMLType
+        #org.hibernate.dialect.H2Dialect #org.hibernate.dialect.Oracle10gDialect #eu.yayi.commons.Oracle10gDialectWithXMLType
+    hibernate:
+      ddl-auto: create
+      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    generate-ddl: true
+    show_sql: true
+    default_schema: PUBLIC
+    #org.hibernate.dialect.Oracle10gDialect
+    #com.github.rx.commons.OracleDialectExtension
+    #application.yaml.commons.Oracle10gDialectWithXMLType
+    #org.hibernate.dialect.H2Dialect

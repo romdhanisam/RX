@@ -1,0 +1,41 @@
+logging:
+  level:
+    root: "INFO"
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:RX #jdbc:oracle:thin:@(description=(address=(protocol=tcp)(host=oracle.db)(port=49161))(connect_data=(service_name=xe)))
+    username: system
+    password: oracle
+    driver-class-name: oracle.jdbc.OracleDriver
+    type: oracle.ucp.jdbc.PoolDataSource
+    # HikariCP settings
+    hikari:
+      minimumIdle: 5
+      maximumPoolSize: 20
+      idleTimeout: 30000
+      maxLifetime: 2000000
+      connectionTimeout: 30000
+      poolName: HikariPoolBooks
+
+      #Note: These properties require JDBC version 21.0.0.0
+    oracleucp:
+      connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+      sql-for-validate-connection: select * from dual
+      connection-pool-name: UcpPoolBooks
+      initial-pool-size: 5
+      min-pool-size: 5
+      max-pool-size: 10
+
+# JPA settings
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle12cDialect #com.github.rx.commons.Oracle10gDialectWithXMLType
+    #database: ORACLE
+    show-sql: true
+    hibernate:
+      use-new-id-generator-mappings: false
+      ddl-auto: create #create-drop
+      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      properties:
+        hibernate:
+          format_sql: true
+          dialect: org.hibernate.dialect.Oracle10gDialect
