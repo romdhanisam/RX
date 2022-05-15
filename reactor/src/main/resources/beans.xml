@@ -31,12 +31,33 @@
     </bean>
 
     <!-- Beans de la couche cliente/presentation -->
-    <!--
     <bean id="client1" class="com.github.rx.client.PersonController">
         <constructor-arg name="reactivePersonService" ref="svc1"></constructor-arg>
     </bean>
+
+    <util:list id="fakeCatalogData">
+        <ref bean="catalog0"/>
+        <ref bean="catalog1"/>
+    </util:list>
+
+    <bean id="repo2" class="com.github.rx.repository.CatalogRepositoryImpl">
+        <constructor-arg name="fakeCatalogData" ref="fakeCatalogData"></constructor-arg>
+    </bean>
+
+    <bean id="svc2" class="com.github.rx.service.CatalogReactiveServiceImpl">
+        <constructor-arg name="catalogRepo" ref="repo2"></constructor-arg>
+    </bean>
+
+    <bean id="client2" class="com.github.rx.client.CatalogController">
+        <constructor-arg name="reactiveCatalogService" ref="svc2"></constructor-arg>
+    </bean>
     -->
 
+
+    <!--
+    <bean id="client" class="com.github.rx.client.MainController">
+    </bean>
+    -->
 
     <!--
 

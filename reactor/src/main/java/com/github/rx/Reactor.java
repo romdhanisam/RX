@@ -10,10 +10,14 @@ import com.github.rx.service.ICatalogReactiveService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.github.rx.repository.ICatalogRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,19 +33,24 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @SpringBootApplication
 @Configuration
 @EnableAutoConfiguration
+//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 @EnableJpaRepositories
 @ImportResource("classpath:beans.xml")
-@ComponentScan({ "com.github.*" })
+@ComponentScan("com.github.rx.service.*")
 public class Reactor  implements CommandLineRunner {
     static Logger logger = LoggerFactory.getLogger(Reactor.class);
 
+    /*
    @Autowired
    private ICatalogReactiveService catalogReactiveService;
+   */
+
 
     public static void main(String[] args) {
         logger.info("###############################");
@@ -58,7 +67,7 @@ public class Reactor  implements CommandLineRunner {
 
 
     @Bean
-    public CommandLineRunner demo(ICatalog2Repository repository) {
+    public CommandLineRunner demo(ICatalogRepository repository) {
         logger.info("#############  Catalog management ###############");
         return (args) -> {
             // save a few catalogs
@@ -76,26 +85,23 @@ public class Reactor  implements CommandLineRunner {
             logger.info("");
 
             // fetch an individual catalog by ID
-            //Optional<Catalog> catalog = repository.findById(savedCatalog.getId());
-            Catalog catalog = repository.findById(savedCatalog.getId());
+            Optional<Catalog> catalog = repository.findById(savedCatalog.getId());
             logger.info("Catalog found with findById(1L):");
             logger.info("--------------------------------");
-            logger.info(catalog.toString());
+            logger.info(catalog.get().toString());
             logger.info("");
         };
     }
-
     /*
-
     @Bean
-    public ICatalogReactiveService getICatalogReactiveService() {
-        return new CatalogReactiveServiceImpl();
+    public ICatalogReactiveService getCatalogReactiveService() {
+        return new CatalogReactiveServiceImpl(getCatalogRepository());
     }
+
     @Bean
     public ICatalogRepository getCatalogRepository() {
         return new CatalogRepositoryImpl();
     }
     */
-
 
 }

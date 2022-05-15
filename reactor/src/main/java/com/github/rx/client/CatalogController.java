@@ -18,7 +18,7 @@ public class CatalogController {
     static Logger logger = LoggerFactory.getLogger(CatalogController.class);
 
     @Autowired
-    private ICatalogReactiveService reactiveCatalogService;
+    private ICatalogReactiveService catalogReactiveService;
 
     public CatalogController() {
         logger.debug("CatalogController .... ctrs ");
@@ -26,7 +26,7 @@ public class CatalogController {
 
     @GetMapping(value = "/catalogs", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Catalog> catalogs() {
-        Flux<Catalog> persons = reactiveCatalogService.getAllCatalog();
+        Flux<Catalog> persons = catalogReactiveService.getAllCatalog();
         logger.debug("CatalogController .... {} ", persons);
         return persons;
     }

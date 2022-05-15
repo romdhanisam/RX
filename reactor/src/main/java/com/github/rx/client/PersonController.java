@@ -4,6 +4,7 @@ import com.github.rx.domain.Person;
 import com.github.rx.service.IPersonReactiveService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ public class PersonController {
 
     static Logger logger = LoggerFactory.getLogger(PersonController.class);
 
+    @Autowired
     private IPersonReactiveService reactivePersonService;
 
     public PersonController(IPersonReactiveService reactivePersonService) {
