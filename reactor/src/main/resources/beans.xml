@@ -31,9 +31,11 @@
     </bean>
 
     <!-- Beans de la couche cliente/presentation -->
+    <!--
     <bean id="client1" class="com.github.rx.client.PersonController">
         <constructor-arg name="reactivePersonService" ref="svc1"></constructor-arg>
     </bean>
+    -->
 
 
     <!--
@@ -64,7 +66,9 @@
     -->
 
 
+    <!--
     <bean id="client" class="com.github.rx.client.MainController">
     </bean>
+    -->
 
 </beans>

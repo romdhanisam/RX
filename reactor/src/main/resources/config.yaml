@@ -1,0 +1,7 @@
+#datasource
+datasource:
+  driverclass: org.h2.Driver
+  jdbcURL: jdbc:h2:mem:mydb;MODE=Oracle;DB_CLOSE_ON_EXIT=FALSE
+  user: sa
+  password:
+  dialect: org.hibernate.dialect.H2Dialect

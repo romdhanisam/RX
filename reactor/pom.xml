@@ -69,5 +69,30 @@
             <version>2.3.3</version>
         </dependency>
     </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <datasource.driverclass>org.h2.Driver</datasource.driverclass>
+                <datasource.jdbcURL>jdbc:h2:mem:mydb;MODE=Oracle;DB_CLOSE_ON_EXIT=FALSE</datasource.jdbcURL>
+                <datasource.user>sa</datasource.user>
+                <datasource.password></datasource.password>
+                <datasource.dialect>org.hibernate.dialect.H2Dialect</datasource.dialect>
+            </properties>
+        </profile>
+
+    </profiles>
 
 </project>

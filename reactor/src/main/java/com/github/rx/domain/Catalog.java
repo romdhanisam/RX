@@ -1,16 +1,14 @@
 package com.github.rx.domain;
 
+import com.github.rx.persistence.entities.ModelObject;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 
 @Getter
 @Setter
@@ -21,8 +19,8 @@ import java.io.Serializable;
         @TypeDef(name = "XMLTYPE", typeClass = HibernateXMLType.class)//,CatalogXmlType
 })
 */
-@Table(name = "t_catalog")
-public class Catalog implements Serializable {
+//@Table(name = "t_catalog")
+public class Catalog extends ModelObject<Integer> implements Serializable {
 
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +31,8 @@ public class Catalog implements Serializable {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     */
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    //@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -50,12 +49,13 @@ public class Catalog implements Serializable {
     @Column(name = "XML_CONTENT")
     //@Basic
     //@XmlElement(name = "XML_CONTENT")
-    private byte[] file; //
+    private byte[] file;
 
     @Override
     public String toString() {
         return "Catalog{" +
-                "file=" + fileName +
+                "fileName=" + fileName +
+                "file=" + new String(file, StandardCharsets.UTF_8) +
                 '}';
     }
 }
