@@ -10,6 +10,8 @@ spring:
     type: oracle.ucp.jdbc.PoolDataSource
     # HikariCP settings
     hikari:
+      username: system
+      password: oracle
       minimumIdle: 5
       maximumPoolSize: 20
       idleTimeout: 30000

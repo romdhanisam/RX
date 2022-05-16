@@ -1,6 +1,7 @@
 package com.github.rx;
 
 import com.github.rx.client.PersonController;
+import com.github.rx.config.ApplicationConfig;
 import com.github.rx.config.GenericSubscriber;
 import com.github.rx.domain.Catalog;
 import com.github.rx.repository.ICatalog2Repository;
@@ -19,10 +20,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -38,19 +36,13 @@ import java.util.Optional;
 
 @SpringBootApplication
 @Configuration
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 //@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-@EnableJpaRepositories
+//@EnableJpaRepositories
 @ImportResource("classpath:beans.xml")
-@ComponentScan("com.github.rx.service.*")
-public class Reactor  implements CommandLineRunner {
+@ComponentScan("com.github.rx.config.*")
+public class Reactor implements CommandLineRunner {
     static Logger logger = LoggerFactory.getLogger(Reactor.class);
-
-    /*
-   @Autowired
-   private ICatalogReactiveService catalogReactiveService;
-   */
-
 
     public static void main(String[] args) {
         logger.info("###############################");
@@ -59,13 +51,24 @@ public class Reactor  implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-        try (ConfigurableApplicationContext ctxt
-                     = new ClassPathXmlApplicationContext("beans.xml")) {
+        // read spring config java class
+        /*
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+        try (ConfigurableApplicationContext ctxt = new ClassPathXmlApplicationContext("beans.xml")) {
+            logger.info("Predefined BEANS Total > "+ctxt.getBeanDefinitionNames().length);
+            for(String name: ctxt.getBeanDefinitionNames()){
+                logger.info("BEAN > "+name);
+            }
         }
+        logger.info("other BEANS Total > "+context.getBeanDefinitionNames().length);
+        for(String name: context.getBeanDefinitionNames()){
+            logger.info("other BEAN > "+name);
+        }
+        */
     }
 
 
+    /*
     @Bean
     public CommandLineRunner demo(ICatalogRepository repository) {
         logger.info("#############  Catalog management ###############");
@@ -92,16 +95,7 @@ public class Reactor  implements CommandLineRunner {
             logger.info("");
         };
     }
-    /*
-    @Bean
-    public ICatalogReactiveService getCatalogReactiveService() {
-        return new CatalogReactiveServiceImpl(getCatalogRepository());
-    }
-
-    @Bean
-    public ICatalogRepository getCatalogRepository() {
-        return new CatalogRepositoryImpl();
-    }
     */
+
 
 }

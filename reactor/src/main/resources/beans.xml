@@ -35,6 +35,8 @@
         <constructor-arg name="reactivePersonService" ref="svc1"></constructor-arg>
     </bean>
 
+
+    <!--
     <util:list id="fakeCatalogData">
         <ref bean="catalog0"/>
         <ref bean="catalog1"/>
@@ -52,7 +54,6 @@
         <constructor-arg name="reactiveCatalogService" ref="svc2"></constructor-arg>
     </bean>
     -->
-
 
     <!--
     <bean id="client" class="com.github.rx.client.MainController">

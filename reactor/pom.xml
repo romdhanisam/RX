@@ -116,7 +116,7 @@
 
     <profiles>
         <profile>
-            <id>dev</id>
+            <id>h2</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>

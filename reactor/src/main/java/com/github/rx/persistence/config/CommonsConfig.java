@@ -36,12 +36,12 @@ public abstract class CommonsConfig implements AsyncConfigurer {
     @Bean(name = "dataSource")
     public DataSource dataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getRequiredProperty("datasource.driverclass"));
-        dataSource.setUrl(environment.getRequiredProperty("datasource.jdbcURL"));
-        dataSource.setUsername(environment.getRequiredProperty("datasource.user"));
-        dataSource.setPassword(environment.getRequiredProperty("datasource.password"));
-        //dataSource.setSchema("PUBLIC");
-        jpaVendorAdapter().setDatabasePlatform(environment.getRequiredProperty("datasource.dialect"));
+        dataSource.setUrl(environment.getProperty("datasource.jdbcURL"));
+        dataSource.setDriverClassName(environment.getProperty("datasource.driverclass"));
+        dataSource.setUsername(environment.getProperty("datasource.user"));
+        dataSource.setPassword(environment.getProperty("datasource.password"));
+        dataSource.setSchema("PUBLIC");
+        jpaVendorAdapter().setDatabasePlatform(environment.getProperty("datasource.dialect"));
         return dataSource;
     }
 
